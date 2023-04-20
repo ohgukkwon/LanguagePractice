@@ -5,11 +5,6 @@
       "taskLabel": "task-hello",
       "appliesTo": "CPP/hello.cpp",
       "type": "launch"
-    },
-    {
-      "taskLabel": "task-Hello",
-      "appliesTo": "Cpp/Hello.cpp",
-      "type": "launch"
     }
   ]
 }
