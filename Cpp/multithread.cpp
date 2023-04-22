@@ -1,38 +1,31 @@
 #include <iostream>
-//using namespace std;
-#include <string>
-#include <thread>
-#include <map>
-#include <chrono>
-using namespace std::chrono_literals;
+#include <cstdlib>
+#include <pthread.h>
 
-//refresh wrather forcast every 2seconds
+using namespace std;
 
-void RefreshForecast( std::map<std::string, int> forecastMap)
-{
-    //while syntax forecastMap every 2 seconds
-    while(true){
-    for (auto item : forecastMap)
-    {
-        item.second ++;
-        std::cout << item.first << " " << item.second << std::endl;
-    }
-    //thread seep 2 seconds
-    //this_thread::sleep_for(2000ms);
-    std::this_thread::sleep_for(2000ms);
-    }
+#define NUM_THREADS 5
+
+void *PrintHello(void *threadid) {
+   long tid;
+   tid = (long)threadid;
+   cout << "Hello World! Thread ID, " << tid << endl;
+   pthread_exit(NULL);
 }
 
-int main()
-{
-    std::map<std::string, int> forecastMap = {
-        {"Tracy", 10},
-        {"San Jose", 15},
-        {"Mountain Hill", 20},
-        {"Stockton", 25}
-    };
-    
-    std::thread bgWorker(RefreshForecast, forecastMap);
-
-    system("pause>0");
+int main () {
+   pthread_t threads[NUM_THREADS];
+   int rc;
+   int i;
+   
+   for( i = 0; i < NUM_THREADS; i++ ) {
+      cout << "main() : creating thread, " << i << endl;
+      rc = pthread_create(&threads[i], NULL, PrintHello, (void *)i);
+      
+      if (rc) {
+         cout << "Error:unable to create thread," << rc << endl;
+         exit(-1);
+      }
+   }
+   pthread_exit(NULL);
 }
