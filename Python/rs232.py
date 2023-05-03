@@ -1,23 +1,19 @@
-#create serial port object
-#need to import serial library
-import serial
+#create Beckhoff ADS connection
+import pyads
 
+# connect to plc and open connection
+plc = pyads.Connection('127.0.0.1.1.1', pyads.PORT_TC3PLC1)
+plc.open()
 
-ser = serial.Serial()
-ser.port = "COM3" #change this to your com port
-ser.baudrate = 9600
-ser.bytesize = serial.EIGHTBITS
-ser.parity = serial.PARITY_NONE
-ser.stopbits = serial.STOPBITS_ONE
-ser.timeout = None          #block read
-#ser.timeout = 0             #non-block read
-#ser.timeout = 2              #timeout block read
-ser.xonxoff = False     #disable software flow control
-ser.rtscts = False     #disable hardware (RTS/CTS) flow control
-ser.dsrdtr = False       #disable hardware (DSR/DTR) flow control
-ser.writeTimeout = 2     #timeout for write
-try:
-    ser.open()
-except Exception as e:
-    print ("error open serial port: " + str(e))
-    exit()
+# read int value by name while plc is running
+#WHILE syntex PLC IS RUNNING
+#
+while plc.read_state() == pyads.STATE_RUN:
+    i = plc.read_by_name("GVL.int_val")
+    print(i)
+
+    # write int value by name
+    plc.write_by_name("GVL.int_val", i)
+
+# close connection
+plc.close()
