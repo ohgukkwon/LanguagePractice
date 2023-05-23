@@ -1,10 +1,17 @@
 {
   "ExpandedNodes": [
     "",
+<<<<<<< HEAD
     "\\Cpp",
     "\\ohgukkwon",
     "\\Python"
   ],
   "SelectedNode": "\\Cpp\\hello.c",
   "PreviewInSolutionExplorer": false
+=======
+    "\\Python"
+  ],
+  "SelectedNode": "\\CSharp",
+  "PreviewInSolutionExplorer": true
+>>>>>>> 7ef3a5f6fa86cf516400d558e8b9e73fa75a1c78
 }
