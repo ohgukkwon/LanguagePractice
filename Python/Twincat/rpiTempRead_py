@@ -1,0 +1,9 @@
+import datetime
+
+def current_sec():
+    now = datetime.datetime.now()
+    #print (now.strftime("      %a %d-%m-%Y @ %H:%M:%S"))
+    sec = now.strftime("%S")
+    print (sec)
+
+current_sec()
